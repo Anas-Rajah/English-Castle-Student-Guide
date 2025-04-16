@@ -1,0 +1,998 @@
+:root {
+  --primary-color: #003366; /* Navy Blue */
+  --secondary-color: #004080; /* Lighter Navy */
+  --accent-color: #00a1ff; /* Bright Blue */
+  --light-accent-color: #e6f6ff; /* Very Light Blue */
+  --text-color: #333;
+  --text-light: #555;
+  --light-gray: #f8f9fa; /* Slightly lighter background */
+  --border-color: #e0e0e0;
+  --white-color: #ffffff;
+  --success-color: #28a745;
+  --font-family: "Cairo", sans-serif;
+  --border-radius: 10px; /* Slightly smaller radius */
+  --box-shadow: 0 6px 18px rgba(0, 51, 102, 0.08); /* Softer shadow */
+  --transition-speed: 0.3s;
+  --nav-width-desktop: 260px; /* Width of the side navigation */
+  --top-nav-height-mobile: 70px; /* Height of top nav on mobile */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth; /* Enable smooth scrolling */
+  scroll-padding-top: calc(
+    var(--top-nav-height-mobile) + 20px
+  ); /* Offset for fixed nav */
+}
+
+body {
+  font-family: var(--font-family);
+  line-height: 1.8;
+  background-color: var(--light-gray);
+  color: var(--text-color);
+  font-size: 16px;
+  position: relative;
+  padding-top: var(
+    --top-nav-height-mobile
+  ); /* Space for fixed top nav on mobile */
+}
+
+.container {
+  max-width: 1100px; /* Adjusted width for content area */
+  margin: 0 auto;
+  padding: 0 15px; /* Default mobile padding */
+}
+
+/* --- Header --- */
+header {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: var(--white-color);
+  padding: 35px 0 55px; /* Adjusted padding */
+  text-align: center;
+  margin-bottom: -40px; /* Overlap with first section */
+  position: relative;
+  z-index: 1;
+}
+header h1 {
+  font-size: 2.2rem; /* Adjusted size for mobile */
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--white-color); /* Ensure white color */
+}
+header p {
+  font-size: 1.05rem; /* Adjusted size for mobile */
+  opacity: 0.9;
+  max-width: 90%; /* Limit width on mobile */
+  margin: 0 auto;
+  color: var(--white-color); /* Ensures white color */
+}
+
+/* --- Main Content Area --- */
+main {
+  padding-top: 60px; /* Space below header */
+  padding-bottom: 40px;
+  position: relative;
+  z-index: 2; /* Above header overlap */
+}
+
+/* --- Section Styling --- */
+.content-section {
+  background-color: var(--white-color);
+  padding: 30px 20px; /* Adjusted padding for mobile */
+  margin-bottom: 30px; /* Adjusted margin */
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.content-section h2 {
+  font-size: 1.8rem; /* Adjusted size for mobile */
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.content-section h2 i {
+  color: var(--accent-color);
+  font-size: 1.6rem;
+}
+
+.content-section h3 {
+  font-size: 1.3rem; /* Adjusted size for mobile */
+  color: var(--secondary-color);
+  margin-top: 25px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.content-section h3 i {
+  font-size: 1.1rem;
+  color: var(--accent-color);
+  opacity: 0.8;
+}
+
+p {
+  margin-bottom: 1.2em;
+  color: var(--text-light);
+  line-height: 1.8; /* Adjusted line height */
+  font-size: 0.95rem; /* Slightly smaller base p font on mobile */
+}
+
+ul,
+ol {
+  padding-right: 20px; /* Reduced indentation */
+  margin-bottom: 1.5em;
+  font-size: 0.95rem;
+}
+
+li {
+  margin-bottom: 12px;
+  color: var(--text-light);
+}
+li strong {
+  color: var(--text-color);
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--transition-speed) ease;
+}
+a:hover {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+/* --- Navigation (Mobile First - Top Nav with Hamburger) --- */
+.main-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: var(--top-nav-height-mobile);
+  background-color: var(--white-color);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between logo and toggle */
+  padding: 0 15px; /* Mobile padding */
+  transition: all var(--transition-speed) ease;
+}
+
+.nav-logo {
+  display: block; /* Show logo on mobile */
+  font-weight: 700;
+  color: var(--primary-color);
+  font-size: 1.1rem; /* Adjusted size */
+}
+.nav-logo a {
+  color: inherit;
+  text-decoration: none;
+}
+.nav-logo i {
+  color: var(--accent-color);
+  margin-left: 5px;
+}
+
+.nav-links {
+  list-style: none;
+  position: absolute;
+  top: var(--top-nav-height-mobile); /* Position below nav bar */
+  right: 0;
+  width: 100%;
+  background-color: var(--white-color);
+  flex-direction: column; /* Stack vertically */
+  max-height: 0; /* Initially hidden */
+  overflow: hidden; /* Hide content when collapsed */
+  transition: max-height 0.4s ease-out, box-shadow 0.4s ease-out; /* Smooth transition */
+  margin: 0;
+  padding: 0;
+  box-shadow: none; /* No shadow when closed */
+}
+
+.main-nav.nav-active .nav-links {
+  /* Styles when menu is open */
+  max-height: calc(
+    100vh - var(--top-nav-height-mobile)
+  ); /* Allow full height scroll */
+  overflow-y: auto; /* Enable scrolling if needed */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05); /* Add shadow when open */
+}
+
+.nav-links li {
+  margin: 0;
+  width: 100%;
+  border-bottom: 1px solid var(--border-color); /* Separator lines */
+}
+.nav-links li:last-child {
+  border-bottom: none;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 20px; /* Link padding */
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 1rem;
+  white-space: nowrap;
+  border-right: 4px solid transparent; /* Active indicator space (used on desktop) */
+  transition: background-color var(--transition-speed) ease,
+    color var(--transition-speed) ease;
+}
+.nav-links a:hover {
+  background-color: var(--light-accent-color);
+  color: var(--primary-color);
+}
+.nav-links a.active {
+  /* Active link style in dropdown */
+  background-color: var(--light-accent-color);
+  color: var(--primary-color);
+  font-weight: 700;
+}
+.nav-links a i {
+  font-size: 1.1rem;
+  opacity: 0.7;
+  width: 20px; /* Ensure icon alignment */
+  text-align: center;
+}
+.nav-links a.active i {
+  opacity: 1;
+}
+
+/* Hamburger Menu Toggle */
+.menu-toggle {
+  display: block; /* Show hamburger on mobile */
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  padding: 5px; /* Easier to tap */
+  background: none;
+  border: none;
+}
+
+/* --- Specific Element Styling --- */
+.video-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%; /* Ensure container takes full width */
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  margin: 25px 0; /* Adjusted margin */
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #000; /* Optional: background for loading state */
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; /* Ensures height fills container */
+  right: 0; /* Ensures width fills container */
+  width: 100%;
+  height: 100%;
+  border: none; /* Explicitly remove border */
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px; /* Smaller padding */
+  margin: 8px 3px 8px 0;
+  font-weight: 600;
+  font-size: 0.9rem; /* Smaller font size */
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    var(--secondary-color)
+  );
+  color: var(--white-color);
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all var(--transition-speed) ease;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 91, 153, 0.2);
+}
+.download-btn i {
+  font-size: 1em;
+}
+.download-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 15px rgba(0, 91, 153, 0.25);
+  color: var(--white-color);
+  background: linear-gradient(
+    135deg,
+    var(--secondary-color),
+    var(--accent-color)
+  );
+}
+
+.steps {
+  counter-reset: step-counter;
+  padding: 0;
+  list-style-type: none;
+}
+.steps li {
+  position: relative;
+  padding-right: 50px; /* Adjusted padding */
+  margin-bottom: 25px; /* Adjusted margin */
+  font-size: 1rem; /* Adjusted size */
+  line-height: 1.6;
+}
+.steps li::before {
+  content: counter(step-counter);
+  counter-increment: step-counter;
+  position: absolute;
+  right: 0;
+  top: 0px;
+  width: 35px; /* Smaller counter */
+  height: 35px;
+  line-height: 35px;
+  font-size: 1rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--accent-color)
+  );
+  color: var(--white-color);
+  border-radius: 50%;
+  text-align: center;
+  font-weight: 700;
+  box-shadow: 0 3px 8px rgba(0, 51, 102, 0.2);
+}
+
+/* Roadmap Mobile */
+.roadmap-container {
+  margin: 40px 0 40px; /* Adjusted margin */
+  padding: 30px 15px; /* Adjusted padding */
+}
+.roadmap-path {
+  display: none;
+} /* Hide path on mobile */
+.roadmap-steps {
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  align-items: center; /* Center steps */
+  gap: 55px; /* Space between vertical steps */
+  position: relative;
+  z-index: 2;
+}
+.roadmap-step {
+  flex: none;
+  width: 95%; /* Full width on mobile */
+  max-width: 400px; /* Max width */
+  text-align: center;
+  position: relative;
+  padding: 20px 15px; /* Adjusted padding */
+  margin-bottom: 0; /* Reset bottom margin */
+  border-top-width: 4px; /* Keep top border */
+  box-shadow: var(--box-shadow);
+  background-color: var(--white-color);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-speed) ease;
+  border-top-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+}
+.roadmap-step:hover {
+  transform: translateY(-5px);
+}
+.roadmap-icon {
+  width: 60px; /* Smaller icon */
+  height: 60px;
+  font-size: 1.6rem;
+  margin: -55px auto 15px; /* Adjust positioning */
+  border-width: 4px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: var(--white-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border-color: var(--white-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  position: relative;
+}
+.roadmap-step h3 {
+  font-size: 1.1rem; /* Adjusted size */
+  margin-top: 10px;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center; /* Center text */
+}
+.roadmap-step p {
+  font-size: 0.9rem; /* Adjusted size */
+  line-height: 1.6;
+  color: var(--text-light);
+  text-align: center; /* Center text */
+}
+.roadmap-checkpoint {
+  display: none;
+} /* Hide checkpoint on mobile */
+
+/* Vertical connector for mobile roadmap */
+.roadmap-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  width: 3px; /* Thinner connector */
+  background: linear-gradient(
+    to bottom,
+    var(--accent-color),
+    var(--primary-color)
+  );
+  height: 45px; /* Shorter connector */
+  bottom: -50px; /* Position below the card */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  border-radius: 2px;
+}
+
+/* FAQ Mobile */
+.faq-item {
+  /* Added styles */
+  margin-bottom: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--white-color);
+  transition: all var(--transition-speed) ease;
+}
+.faq-question {
+  font-size: 1rem; /* Adjusted size */
+  padding: 15px 20px;
+  /* Added styles */
+  font-weight: 600;
+  color: var(--primary-color);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color var(--transition-speed) ease;
+}
+.faq-question:hover {
+  background-color: var(--light-accent-color);
+}
+.faq-question::after {
+  /* Added styles */
+  content: "\f078"; /* Chevron Down */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 0.8rem;
+  color: var(--accent-color);
+  transition: transform var(--transition-speed) ease;
+  margin-right: 8px;
+}
+.faq-question.active::after {
+  transform: rotate(180deg);
+} /* Chevron Up */
+.faq-answer {
+  /* Added styles */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+  background-color: var(--white-color);
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.faq-answer p {
+  padding: 0 20px 0 20px;
+  margin-bottom: 0;
+} /* Adjusted padding */
+.faq-answer.active {
+  max-height: 500px; /* Adjust as needed */
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
+
+/* Support Section Mobile */
+#support ul {
+  list-style: none;
+  padding: 0;
+  max-width: 100%;
+}
+#support li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  flex-wrap: wrap; /* Allow wrapping for long text/icons */
+}
+#support li i:first-child {
+  /* Target only the leading icon */
+  font-size: 1.3rem;
+  color: var(--accent-color); /* Ensure color */
+  width: 25px;
+  text-align: center; /* Center icon */
+  flex-shrink: 0; /* Prevent icon shrinking */
+}
+#support strong {
+  display: block;
+  width: 100%;
+  margin-bottom: 3px;
+  color: var(--text-color);
+} /* Make bold text stack */
+#support .social-icons {
+  /* Adjust social icons container */
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Space between social icons */
+  margin-top: 5px;
+  width: 100%; /* Take full width */
+}
+#support .social-icons i {
+  font-size: 1.4rem;
+  margin: 0;
+  color: var(--primary-color); /* Default color */
+  transition: color 0.3s ease;
+}
+#support .social-icons a:hover i {
+  color: var(--accent-color);
+} /* Hover color */
+
+/* Chatbot Mobile */
+.chatbot-container {
+  position: fixed; /* Ensure fixed position */
+  bottom: 15px;
+  left: 15px;
+  z-index: 1000;
+}
+.chatbot-button {
+  /* Added styles */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--accent-color)
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 51, 102, 0.3);
+  transition: all var(--transition-speed) ease;
+  animation: pulse 2s infinite ease-in-out;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 5px 20px rgba(0, 51, 102, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 51, 102, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 5px 20px rgba(0, 51, 102, 0.3);
+  }
+}
+.chatbot-button:hover {
+  transform: scale(1.1);
+  animation: none;
+}
+.chatbot-icon {
+  font-size: 28px;
+  color: var(--white-color);
+}
+.chatbot-window {
+  position: absolute; /* Ensure absolute */
+  width: calc(100vw - 30px); /* Near full width */
+  max-width: 320px;
+  height: calc(100vh - 100px); /* Adjust height dynamically */
+  max-height: 450px; /* Limit max height */
+  bottom: 80px;
+  left: 0;
+  /* Added styles */
+  background-color: var(--white-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.95) translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease,
+    visibility 0s linear 0.3s;
+}
+.chatbot-window.active {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.3s ease, opacity 0.3s ease,
+    visibility 0s linear 0s;
+}
+/* ... (Keep other chatbot inner styles: header, messages, input, etc.) ... */
+.chatbot-header {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: var(--white-color);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+.chatbot-header h3 {
+  color: var(--white-color);
+  margin-bottom: 0;
+  font-size: 1.1rem;
+}
+.chatbot-close {
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  opacity: 0.8;
+  transition: opacity var(--transition-speed);
+}
+.chatbot-close:hover {
+  opacity: 1;
+}
+.chatbot-messages {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #fdfdfd;
+}
+.bot-message,
+.user-message {
+  max-width: 85%;
+  padding: 12px 18px;
+  border-radius: 18px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+.bot-message {
+  background-color: var(--light-accent-color);
+  color: var(--text-color);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.user-message {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.chatbot-input {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--white-color);
+  flex-shrink: 0;
+}
+.chatbot-text {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  margin-left: 10px; /* RTL */
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: none;
+  height: 42px;
+}
+.chatbot-text:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 161, 255, 0.2);
+}
+.chatbot-send {
+  background: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+  flex-shrink: 0;
+}
+.chatbot-send i {
+  font-size: 1.1rem;
+}
+.chatbot-send:hover {
+  background-color: var(--accent-color);
+}
+
+/* Footer Mobile */
+footer {
+  background-color: var(--secondary-color);
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  padding: 25px 0;
+  margin-top: 30px;
+}
+footer p {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* --- Responsive Adjustments (Desktop) --- */
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 30px;
+  } /* Adjust scroll offset for side nav */
+  body {
+    padding-top: 0;
+    padding-right: var(--nav-width-desktop);
+  }
+  .container {
+    padding: 0 30px;
+    max-width: 90%;
+  }
+  header {
+    padding: 40px 0 60px;
+  }
+  header h1 {
+    font-size: 2.6rem;
+  }
+  header p {
+    font-size: 1.15rem;
+    max-width: 700px;
+  }
+
+  .main-nav {
+    width: var(--nav-width-desktop);
+    height: 100vh;
+    top: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px 0;
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.06);
+    background-color: var(--white-color);
+    justify-content: flex-start;
+  }
+  .nav-logo {
+    padding: 0 25px;
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+  }
+  .menu-toggle {
+    display: none;
+  }
+  .nav-links {
+    position: static;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0;
+    max-height: none;
+    box-shadow: none;
+  }
+  .nav-links li {
+    width: 100%;
+    border-bottom: none;
+  }
+  .nav-links a {
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-bottom: none;
+    border-right: 4px solid transparent;
+    justify-content: flex-start;
+    white-space: normal;
+  }
+  .nav-links a:hover {
+    background-color: var(--light-accent-color);
+    color: var(--primary-color);
+  }
+  .nav-links a.active {
+    background-color: var(--light-accent-color);
+    color: var(--primary-color);
+    border-right-color: var(--accent-color);
+    font-weight: 700;
+  }
+  .nav-links a i {
+    font-size: 1.1rem;
+    width: 25px;
+  }
+
+  .content-section {
+    padding: 40px 35px;
+    margin-bottom: 40px;
+  }
+  .content-section h2 {
+    font-size: 2.1rem;
+    gap: 12px;
+  }
+  .content-section h2 i {
+    font-size: 1.8rem;
+  }
+  .content-section h3 {
+    font-size: 1.5rem;
+    gap: 10px;
+  }
+  .content-section h3 i {
+    font-size: 1.2rem;
+  }
+  p {
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+  ul,
+  ol {
+    font-size: 1rem;
+    padding-right: 25px;
+  }
+
+  .video-container {
+    margin: 35px 0;
+  }
+
+  .download-btn {
+    font-size: 1rem;
+    padding: 12px 28px;
+    gap: 10px;
+  }
+  .download-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+  }
+  .steps li {
+    font-size: 1.05rem;
+    padding-right: 60px;
+    margin-bottom: 30px;
+  }
+  .steps li::before {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 1.1rem;
+  }
+
+  /* Roadmap horizontal layout */
+  .roadmap-container {
+    margin: 50px 0 60px;
+    padding: 40px 20px;
+  }
+  .roadmap-steps {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 20px;
+    flex-wrap: nowrap;
+  }
+  .roadmap-step {
+    flex: 1;
+    width: auto;
+    max-width: none;
+    min-width: 160px;
+    margin-bottom: 0;
+    padding: 25px 15px;
+  }
+  .roadmap-step:not(:last-child)::after {
+    display: none;
+  }
+  .roadmap-path,
+  .roadmap-checkpoint {
+    display: block;
+  }
+  .roadmap-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+    margin: -65px auto 20px;
+    border-width: 5px;
+  }
+  .roadmap-step h3 {
+    font-size: 1.15rem;
+  }
+  .roadmap-step p {
+    font-size: 0.95rem;
+  }
+
+  #support li {
+    flex-wrap: nowrap;
+    font-size: 1.05rem;
+    gap: 15px;
+  }
+  #support li i:first-child {
+    width: 30px;
+    font-size: 1.5rem;
+  }
+  #support strong {
+    display: inline;
+    width: auto;
+    margin-bottom: 0;
+  }
+  #support .social-icons {
+    width: auto; /* Reset width */
+  }
+
+  .chatbot-container {
+    bottom: 25px;
+    left: 25px;
+  }
+  .chatbot-window {
+    bottom: 95px;
+    width: 340px;
+    height: 450px;
+    left: 0;
+    max-height: 450px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+  header h1 {
+    font-size: 2.8rem;
+  }
+  .content-section h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1100px;
+  }
+  :root {
+    --nav-width-desktop: 280px;
+  }
+  .nav-links a {
+    padding: 16px 35px;
+  }
+  .roadmap-path {
+    top: 105px;
+  }
+  .roadmap-icon {
+    width: 75px;
+    height: 75px;
+    font-size: 2rem;
+    margin-top: -70px;
+  }
+  .roadmap-checkpoint {
+    bottom: -47px;
+    width: 20px;
+    height: 20px;
+    border-width: 5px;
+  }
+}
